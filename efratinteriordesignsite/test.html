@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Test</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+    <h1>Firebase Test</h1>
+    <button id="test-read">Test Read</button>
+    <button id="test-write">Test Write</button>
+    <pre id="output" style="background: #f0f0f0; padding: 10px; margin-top: 20px;"></pre>
+
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOq8xEfIm-jPU8QkOaPzlN_PqDX2P3YYw",
+            authDomain: "interior-design-70641.firebaseapp.com",
+            projectId: "interior-design-70641",
+            storageBucket: "interior-design-70641.firebasestorage.app",
+            messagingSenderId: "947037813020",
+            appId: "1:947037813020:web:e8c7a40dee8052f078a2d9",
+            measurementId: "G-STZJJVSTMZ",
+            databaseURL: "https://interior-design-70641-default-rtdb.firebaseio.com"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const output = document.getElementById('output');
+        
+        // Test read
+        document.getElementById('test-read').addEventListener('click', () => {
+            output.textContent = 'Reading from Firebase...';
+            
+            database.ref('chats').once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    output.textContent = 'Data from Firebase:\n' + JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    output.textContent = 'Error reading from Firebase:\n' + error.message;
+                });
+        });
+        
+        // Test write
+        document.getElementById('test-write').addEventListener('click', () => {
+            output.textContent = 'Writing to Firebase...';
+            
+            const testId = 'test-' + Date.now();
+            database.ref('chats/' + testId).push({
+                sender: 'user',
+                message: 'Test message from test.html',
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            })
+            .then(() => {
+                output.textContent = 'Successfully wrote to Firebase!\nCheck the database.';
+            })
+            .catch(error => {
+                output.textContent = 'Error writing to Firebase:\n' + error.message;
+            });
+        });
+    </script>
+</body>
+</html> 
