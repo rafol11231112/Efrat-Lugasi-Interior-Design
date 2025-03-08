@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     initHero3D();
     loadModels();
     initFloatingModels();
-    initStyleSelector();
 
     // Smooth scroll for navigation links
     document.querySelectorAll('nav a').forEach(link => {
@@ -687,76 +686,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Debug
     console.log('Chat trigger element:', chatTrigger);
     console.log('Chat container element:', chatContainer);
-});
-
-// Initialize Style Selector
-function initStyleSelector() {
-    const styleButtons = document.querySelectorAll('.style-btn');
-    
-    const styles = {
-        modern: {
-            image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0',
-            title: 'Modern Style',
-            description: 'Clean lines, simple color palettes, and a focus on function and form.',
-            colors: ['#FFFFFF', '#000000', '#D3D3D3', '#87CEEB', '#FFD700']
-        },
-        scandinavian: {
-            image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace',
-            title: 'Scandinavian Style',
-            description: 'Light, airy spaces with natural materials and minimal decoration.',
-            colors: ['#FFFFFF', '#F5F5F5', '#E0E0E0', '#B0C4DE', '#D2B48C']
-        },
-        industrial: {
-            image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d',
-            title: 'Industrial Style',
-            description: 'Raw materials, exposed elements, and an urban edge.',
-            colors: ['#696969', '#A52A2A', '#8B4513', '#708090', '#000000']
-        },
-        minimalist: {
-            image: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c',
-            title: 'Minimalist Style',
-            description: 'Less is more. Simple color schemes and clean lines.',
-            colors: ['#FFFFFF', '#000000', '#D3D3D3', '#F5F5F5', '#808080']
-        },
-        bohemian: {
-            image: 'https://images.unsplash.com/photo-1617104678098-de229db51175',
-            title: 'Bohemian Style',
-            description: 'Eclectic and artistic with rich patterns and textures.',
-            colors: ['#8B4513', '#DAA520', '#800080', '#006400', '#FF4500']
-        },
-        mediterranean: {
-            image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea',
-            title: 'Mediterranean Style',
-            description: 'Warm and inviting with terracotta colors and natural materials.',
-            colors: ['#CD5C5C', '#F5DEB3', '#4682B4', '#8B4513', '#FFFFFF']
-        },
-        traditional: {
-            image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6',
-            title: 'Traditional Style',
-            description: 'Classic elegance with rich colors and ornate details.',
-            colors: ['#800000', '#8B4513', '#DAA520', '#006400', '#000080']
-        }
-    };
-
-    function updateStyle(styleId) {
-        const style = styles[styleId];
-        document.querySelectorAll('.style-image').forEach(img => img.classList.remove('active'));
-        document.querySelector(`.style-image[data-style="${styleId}"]`).classList.add('active');
-        
-        const colors = document.querySelector(`.style-image[data-style="${styleId}"] .style-colors`);
-        colors.innerHTML = style.colors
-            .map(color => `<div class="color-swatch" style="background-color: ${color}"></div>`)
-            .join('');
-    }
-
-    styleButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            styleButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            updateStyle(button.dataset.style);
-        });
-    });
-
-    // Initialize with modern style
-    updateStyle('modern');
-} 
+}); 
